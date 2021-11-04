@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        // Creat a loop that runs through the game 5 times
+        // After each round state who won and what the score is
+        // End after 5 rounds and state who won with the score
+        
+        let playerPoints = 0;
+        let computerPoints = 0;
+
+        function game() {
+            for (let i = 1; i <= 6; i++) {
+                if (i < 6) {
+                    rockPaperScissors();
+                    console.log("Your points: " + playerPoints + " Computer points: " + computerPoints);
+                }   else {
+                    if (playerPoints > computerPoints) {
+                        return "You won! Your points: " + playerPoints + " Computer points: " + computerPoints;
+                    }   else if (computerPoints > playerPoints) {
+                        return "You lost! Your points: " + playerPoints + " Computer points: " + computerPoints;
+                    }   else {
+                        return "It's a draw! Your points: " + playerPoints + " Computer points: " + computerPoints;
+                    }
+                }
+            }
+        }
+
+
+        function rockPaperScissors() {
+            // Create a function that prompts a player to choose between Rock, Paper and Scissor
+            // Make a string variable from the user input
+            // Convert the string variable to all uppercase
+            
+            let playerChoiceRaw = prompt("Which one do you pick? Rock, Paper, or Scissor? ");
+
+            let playerSelection = playerChoiceRaw.toUpperCase();
+            // Create a function that randomly chooses one of Rock, Paper, Scissor to be played by the computer
+                //Create an arry containing the three choices
+                //Create a function to randomly pick one of the three array components
+
+            console.log(playerSelection);
+            
+            function computerPlay() {
+                const computerOptions = ["ROCK", "PAPER", "SCISSOR"];
+                let computerChoice = computerOptions[Math.floor(Math.random()*computerOptions.length)];
+                return computerChoice;
+            }
+            
+            let computerSelection = computerPlay();
+            console.log(computerSelection);
+
+            // Create a function that compares the input from the user to the generated choice from the computer
+                // If computer and human choice is the sam that equals a draw
+                // Else if computer choice equals "ROCK" and person choice equals "PAPER" = You win!
+                // Else if computer choice equals "ROck" and person choice equals "Scissor" = You lose"
+                // Else if computer choice equals usw.
+
+            if (playerSelection === computerSelection) {
+                console.log("It's a draw!");
+            }   else if ((playerSelection === "ROCK") && (computerSelection === "PAPER")) {
+                console.log("Paper beats rock. You lose!");
+                computerPoints = computerPoints + 1;
+                return computerPoints;
+            }   else if ((playerSelection === "ROCK") && (computerSelection === "SCISSOR")) {
+                console.log("Rock beats scissor. You win!");
+                playerPoints = playerPoints + 1;
+                return playerPoints;
+            }   else if ((playerSelection === "PAPER") && (computerSelection === "ROCK")) {
+                console.log("Paper beats rock. You win!");
+                playerPoints = playerPoints + 1;
+                return playerPoints;
+            }   else if ((playerSelection === "PAPER") && (computerSelection === "SCISSOR")) {
+                console.log("Scissor beats paper. You lose!");
+                computerPoints = computerPoints + 1;
+                return computerPoints;
+            }   else if ((playerSelection === "SCISSOR") && (computerSelection === "PAPER")) {
+                console.log("Scissor beats paper. You win!");
+                playerPoints = playerPoints + 1;
+                return playerPoints;
+            }   else if ((playerSelection === "SCISSOR") && (computerSelection === "ROCK")) {
+                console.log("Rock beats scissor. You lose!");
+                computerPoints = computerPoints + 1;
+                return computerPoints;
+            }   else {
+                console.log("You entered something other (" + playerChoiceRaw + ") than rock, paper or scissor. Try again!")
+            }
+
+        }
+    </script>
+</body>
+</html>
