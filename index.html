@@ -17,15 +17,16 @@
         let computerPoints = 0;
 
         function game() {
+            
             for (let i = 1; i <= 6; i++) {
                 if (i < 6) {
                     rockPaperScissors();
                     console.log("Your points: " + playerPoints + " Computer points: " + computerPoints);
                 }   else {
                     if (playerPoints > computerPoints) {
-                        return "You won! Your points: " + playerPoints + " Computer points: " + computerPoints;
+                        return "You won! Your points: " + playerPoints + " Computer points: " + computerPoints; 
                     }   else if (computerPoints > playerPoints) {
-                        return "You lost! Your points: " + playerPoints + " Computer points: " + computerPoints;
+                        return "You lost! Your points: " + playerPoints + " Computer points: " + computerPoints; 
                     }   else {
                         return "It's a draw! Your points: " + playerPoints + " Computer points: " + computerPoints;
                     }
