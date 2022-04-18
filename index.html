@@ -5,10 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <h1> ROCK, PAPER, OR SCISSOR?! First to 3 wins!</h1>
+    <div class="selectionArea">
+        <button class="choice" id="ROCK">ROCK</button>
+        <button class="choice" id="PAPER">PAPER</button>
+        <button class="choice" id="SCISSOR">SCISSOR</button>
+    </div>
+    <div class="flex-container">
+
+        <div id="playerresults">
+            <h3>Your choices:</h3>
+        </div>
+        <div id="computerresults">
+            <h3>Computer choices:</h3>
+        </div>
+        <div id="roundresults">
+            <h3>Result:</h3>
+        </div>
+        <div id="playerpoints">
+            <h3>Your points:</h3>
+        </div>
+        <div id="computerpoints">
+            <h3>PC points:</h3>
+        </div>
+    </div>
+    <div id="finalresult">
+
+    </div>
+
     <script>
+        // Add an eventlistener to the buttons
+       
+
+
         // Creat a loop that runs through the game 5 times
         // After each round state who won and what the score is
         // End after 5 rounds and state who won with the score
@@ -16,37 +48,45 @@
         let playerPoints = 0;
         let computerPoints = 0;
 
-        function game() {
-            
-            for (let i = 1; i <= 6; i++) {
-                if (i < 6) {
-                    rockPaperScissors();
-                    console.log("Your points: " + playerPoints + " Computer points: " + computerPoints);
-                }   else {
-                    if (playerPoints > computerPoints) {
-                        return "You won! Your points: " + playerPoints + " Computer points: " + computerPoints; 
-                    }   else if (computerPoints > playerPoints) {
-                        return "You lost! Your points: " + playerPoints + " Computer points: " + computerPoints; 
-                    }   else {
-                        return "It's a draw! Your points: " + playerPoints + " Computer points: " + computerPoints;
-                    }
-                }
-            }
-        }
+        // function game() {
+        //     for (let i = 1; i <= 6; i++) {
+        //         if (i < 6) {
+        //             rockPaperScissors();
+        //             console.log("Your points: " + playerPoints + " Computer points: " + computerPoints);
+        //         }   else {
+        //             if (playerPoints > computerPoints) {
+        //                 return "You won! Your points: " + playerPoints + " Computer points: " + computerPoints; 
+        //             }   else if (computerPoints > playerPoints) {
+        //                 return "You lost! Your points: " + playerPoints + " Computer points: " + computerPoints; 
+        //             }   else {
+        //                 return "It's a draw! Your points: " + playerPoints + " Computer points: " + computerPoints;
+        //             }
+        //         }
+        //     }
+        // }
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach((button) => {
+            button.addEventListener('click', rockPaperScissors, false);
+            button.myParam = button.id;
+        });
 
-
-        function rockPaperScissors() {
+        function rockPaperScissors(choice) {
             // Create a function that prompts a player to choose between Rock, Paper and Scissor
             // Make a string variable from the user input
             // Convert the string variable to all uppercase
             
-            let playerChoiceRaw = prompt("Which one do you pick? Rock, Paper, or Scissor? ");
+            const playerChoiceRaw = choice.currentTarget.myParam;
 
             let playerSelection = playerChoiceRaw.toUpperCase();
             // Create a function that randomly chooses one of Rock, Paper, Scissor to be played by the computer
                 //Create an arry containing the three choices
                 //Create a function to randomly pick one of the three array components
 
+            const container = document.querySelector('#playerresults');
+            const playerOutcome = document.createElement('h3');
+            playerOutcome.classList.add('playerresult');
+            playerOutcome.textContent = playerSelection;
+            container.appendChild(playerOutcome);
             console.log(playerSelection);
             
             function computerPlay() {
@@ -56,6 +96,11 @@
             }
             
             let computerSelection = computerPlay();
+            const container2 = document.querySelector('#computerresults');
+            const computerOutcome = document.createElement('h3');
+            computerOutcome.classList.add('computerresult');
+            computerOutcome.textContent = computerSelection;
+            container2.appendChild(computerOutcome);
             console.log(computerSelection);
 
             // Create a function that compares the input from the user to the generated choice from the computer
@@ -63,38 +108,154 @@
                 // Else if computer choice equals "ROCK" and person choice equals "PAPER" = You win!
                 // Else if computer choice equals "ROck" and person choice equals "Scissor" = You lose"
                 // Else if computer choice equals usw.
+            const container3 = document.querySelector('#roundresults');
+            const roundResult = document.createElement('h3');
+            roundResult.classList.add('roundresult');
 
+            const container4 = document.querySelector('#playerpoints');
+            const playerP = document.createElement('h3');
+            playerP.classList.add('playerpoints');
+
+            const container5 = document.querySelector('#computerpoints');
+            const computerP = document.createElement('h3');
+            computerP.classList.add('computerpoints');
+
+            function playerWin () {
+                const container6 = document.querySelector('#finalresult');
+                const gameOutcome = document.createElement('h1');
+                const gameOver = document.createElement('button');
+                gameOutcome.classList.add('playerwin');
+                gameOver.classList.add('playerwin');
+                gameOutcome.textContent = "Congratulations, you win!";
+                gameOver.textContent = "CLEAR";
+                container6.appendChild(gameOutcome);
+                container6.appendChild(gameOver);
+                buttons[0].setAttribute('style', 'background-color: black');
+                buttons[1].setAttribute('style', 'background-color: black');
+                buttons[2].setAttribute('style', 'background-color: black');
+                buttons[0].setAttribute('disabled', 'disabled');
+                buttons[1].setAttribute('disabled', 'disabled');
+                buttons[2].setAttribute('disabled', 'disabled');
+                function reload () {reload = window.location.reload();};
+                gameOver.addEventListener("click", reload, false);
+            }
+
+            function computerWin () {
+                const container6 = document.querySelector('#finalresult');
+                const gameOutcome = document.createElement('h1');
+                const gameOver = document.createElement('button');
+                gameOutcome.classList.add('computerwin');
+                gameOver.classList.add('computerwin');
+                gameOutcome.textContent = "Oh no, you lost!";
+                gameOver.textContent = "CLEAR";
+                container6.appendChild(gameOutcome);
+                container6.appendChild(gameOver);
+                buttons[0].setAttribute('style', 'background-color: black');
+                buttons[1].setAttribute('style', 'background-color: black');
+                buttons[2].setAttribute('style', 'background-color: black');
+                buttons[0].setAttribute('disabled', 'disabled');
+                buttons[1].setAttribute('disabled', 'disabled');
+                buttons[2].setAttribute('disabled', 'disabled');
+                function reload () {reload = window.location.reload();};
+                gameOver.addEventListener("click", reload, false);
+            }
+          
             if (playerSelection === computerSelection) {
-                console.log("It's a draw!");
+                roundResult.textContent = "It's a draw!";
+                container3.appendChild(roundResult);
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
             }   else if ((playerSelection === "ROCK") && (computerSelection === "PAPER")) {
-                console.log("Paper beats rock. You lose!");
+                roundResult.textContent = "Paper beats rock. You lose!";
+                container3.appendChild(roundResult);
                 computerPoints = computerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return computerPoints;
             }   else if ((playerSelection === "ROCK") && (computerSelection === "SCISSOR")) {
-                console.log("Rock beats scissor. You win!");
+                roundResult.textContent = "Rock beats scissor. You win!";
+                container3.appendChild(roundResult);
                 playerPoints = playerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return playerPoints;
             }   else if ((playerSelection === "PAPER") && (computerSelection === "ROCK")) {
-                console.log("Paper beats rock. You win!");
+                roundResult.textContent = "Paper beats rock. You win!";
+                container3.appendChild(roundResult);
                 playerPoints = playerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return playerPoints;
             }   else if ((playerSelection === "PAPER") && (computerSelection === "SCISSOR")) {
-                console.log("Scissor beats paper. You lose!");
+                roundResult.textContent = "Scissor beats paper. You lose!";
+                container3.appendChild(roundResult);
                 computerPoints = computerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return computerPoints;
             }   else if ((playerSelection === "SCISSOR") && (computerSelection === "PAPER")) {
-                console.log("Scissor beats paper. You win!");
+                roundResult.textContent = "Scissor beats paper. You win!";
+                container3.appendChild(roundResult);
                 playerPoints = playerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return playerPoints;
             }   else if ((playerSelection === "SCISSOR") && (computerSelection === "ROCK")) {
-                console.log("Rock beats scissor. You lose!");
+                roundResult.textContent = "Rock beats scissor. You lose!";
+                container3.appendChild(roundResult);
                 computerPoints = computerPoints + 1;
+                playerP.textContent = playerPoints;
+                container4.appendChild(playerP);
+                computerP.textContent = computerPoints;
+                container5.appendChild(computerP);
+                if (playerPoints >= 3) {
+                    playerWin();
+                } else if (computerPoints >= 3) {
+                    computerWin();}
                 return computerPoints;
             }   else {
                 console.log("You entered something other (" + playerChoiceRaw + ") than rock, paper or scissor. Try again!")
             }
 
+            
         }
+
     </script>
 </body>
 </html>
